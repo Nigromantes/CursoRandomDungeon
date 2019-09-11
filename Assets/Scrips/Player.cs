@@ -14,50 +14,52 @@ public class Player : MonoBehaviour {
 	void Start () {
         transform = GetComponent<Transform>();
         flipX = transform.localScale.x;
-        obstaculeMask = LayerMask.GetMask("Wall", "Enamy");
+        obstaculeMask = LayerMask.GetMask("Wall", "Enemy");
 		
 	}
 	
 	
 	void Update () {
+        Move();
+    }
+
+    private void Move()
+    {
         float horizontal = System.Math.Sign(Input.GetAxisRaw("Horizontal"));
         float vertical = System.Math.Sign(Input.GetAxisRaw("Vertical"));
-        if (Mathf.Abs(horizontal)>0 || Mathf.Abs(vertical)>0)
+        if (Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0)
         {
-            if (Mathf.Abs(horizontal) > 0)
-            {
-                transform.localScale = new Vector2(flipX * horizontal, transform.localScale.y);
-            }
+            //if (Mathf.Abs(horizontal) > 0)
+            //{
+            //    transform.localScale = new Vector2(flipX * horizontal, transform.localScale.y);
+            //}
 
             if (!isMoving)
             {
                 if (Mathf.Abs(horizontal) > 0)
                 {
-                    targetPosition = new Vector2(transform.position.x + horizontal,
-                        transform.position.y);
-                     
+                    targetPosition = new Vector2(transform.position.x + horizontal, transform.position.y);
+
                 }
                 else if (Mathf.Abs(vertical) > 0)
                 {
-                    targetPosition = new Vector2(transform.position.x,
-                        transform.position.y + vertical);
+                    targetPosition = new Vector2(transform.position.x, transform.position.y + vertical);
                 }
                 //Revisar collisiones. 
                 Vector2 hitSize = Vector2.one * 0.8f;
-                Collider2D hit = Physics2D.OverlapBox(targetPosition, hitSize, 0,
-                    obstaculeMask);
+
+                Collider2D hit = Physics2D.OverlapBox(targetPosition, hitSize, 0, obstaculeMask);
+
                 if (!hit)
                 {
                     StartCoroutine(SmoothMove());
                 }
             }
-            
-
-
-
-
+                                 
         }
+
     }
+
 
     IEnumerator SmoothMove()
     {
