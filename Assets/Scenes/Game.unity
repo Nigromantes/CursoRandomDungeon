@@ -211,4 +211,5 @@ MonoBehaviour:
     type: 2}
   tilePrefab: {fileID: 1902658735878046, guid: 89851f316c80849488973ca151d95e50, type: 2}
   exitPrefab: {fileID: 1672311487106666, guid: dafad482b390b6f4ab9939a8f2da79d8, type: 2}
-  TotalFloorCurrent: 150
+  TotalFloorCurrent: 100
+  itemSpawnPercen: 20
