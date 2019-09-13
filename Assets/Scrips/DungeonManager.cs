@@ -8,10 +8,11 @@ using Random = UnityEngine.Random;
 public class DungeonManager : MonoBehaviour {
 
     [HideInInspector] public float maxX, minX, maxY, minY;
-    public GameObject[] randomItems;
+    public GameObject[] randomItems, randomEnemies;
     public GameObject floorPrefab, wallsPrefab, tilePrefab, exitPrefab;
     [Range(100, 5000)] public int TotalFloorCurrent;
     [Range(0, 100)] public int itemSpawnPercen;
+    [Range(0, 100)] public int EnemySpawnPercen;
 
     List<Vector3> floorlist = new List<Vector3>();
     LayerMask floorMask, wallMask;
@@ -100,6 +101,7 @@ public class DungeonManager : MonoBehaviour {
                         Collider2D hitLeft = Physics2D.OverlapBox(new Vector2(x - 1, y), hitSize, 0, wallMask);
 
                         RandomItems(hitFloor, hitTop, hitRight, hitButtom, hitLeft);
+                        RandomEnemies(hitFloor, hitTop, hitRight, hitButtom, hitLeft);
 
 
                     }
@@ -110,11 +112,26 @@ public class DungeonManager : MonoBehaviour {
                
     }
 
+    private void RandomEnemies(Collider2D hitFloor, Collider2D hitTop, Collider2D hitRight, Collider2D hitButtom, Collider2D hitLeft)
+    {
+        if (!hitTop && !hitRight && !hitButtom && !hitLeft)
+        {
+            int roll = Random.Range(1, 101);
+            if (roll <= EnemySpawnPercen)
+            {
+                int EnemyIndex = Random.Range(0, randomEnemies.Length);
+                GameObject GameObjecEnemy = Instantiate(randomEnemies[EnemyIndex], hitFloor.transform.position, Quaternion.identity) as GameObject;
+                GameObjecEnemy.name = randomItems[EnemyIndex].name;
+                GameObjecEnemy.transform.SetParent(transform);
+            }
+        }
+    }
+
     private void RandomItems(Collider2D hitFloor, Collider2D hitTop, Collider2D hitRight, Collider2D hitButtom, Collider2D hitLeft)
     {
         if ((hitTop || hitRight || hitButtom || hitLeft) && !(hitTop && hitButtom) && !(hitRight && hitLeft))
         {
-            int roll = Random.Range(0, 101);
+            int roll = Random.Range(1, 101);
             if (roll <= itemSpawnPercen)
             {
                 int itemIndex = Random.Range(0, randomItems.Length);
