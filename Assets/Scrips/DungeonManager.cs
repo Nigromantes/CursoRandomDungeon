@@ -43,26 +43,11 @@ public class DungeonManager : MonoBehaviour {
 
         while (floorlist.Count < TotalFloorCurrent)
         {
-            switch (Random.Range(1, 5))
-            {
-                case 1: currentPosition += Vector3.up; break;
-                case 2: currentPosition += Vector3.right; break;
-                case 3: currentPosition += Vector3.down; break;
-                case 4: currentPosition += Vector3.left; break;
+            currentPosition += RandomDirection();
+           
 
-
-            }
-
-            bool inFloorList = false;
-            for (int i = 0; i < floorlist.Count; i++)
-            {
-                if (Vector3.Equals(currentPosition, floorlist[i]))
-                {
-                    inFloorList = true;
-                    break;
-                }
-            }
-            if (!inFloorList)
+           
+            if (!InFloorList(currentPosition))
             {
                 floorlist.Add(currentPosition);
             }
@@ -78,6 +63,33 @@ public class DungeonManager : MonoBehaviour {
         }
         StartCoroutine(DelayProgress());
 
+    }
+
+    bool InFloorList(Vector3 myPosition)
+    {
+                
+        for (int i = 0; i < floorlist.Count; i++)
+        {
+            if (Vector3.Equals(myPosition, floorlist[i]))
+            {
+                return true;
+                
+            }
+        }
+        return false;
+
+    }
+
+    private Vector3 RandomDirection()
+    {
+        switch (Random.Range(1, 5))
+        {
+            case 1: return Vector3.up; 
+            case 2: return Vector3.right; 
+            case 3: return Vector3.down; 
+            case 4: return Vector3.left; 
+        }
+        return Vector3.zero;
     }
 
     IEnumerator DelayProgress()
