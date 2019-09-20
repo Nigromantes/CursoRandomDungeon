@@ -10,16 +10,20 @@ public class DungeonManager : MonoBehaviour {
     [HideInInspector] public float maxX, minX, maxY, minY;
     public GameObject[] randomItems, randomEnemies;
     public GameObject floorPrefab, wallsPrefab, tilePrefab, exitPrefab;
+    public GameObject[] roundedEdges;
     [Range(100, 5000)] public int TotalFloorCurrent;
     [Range(0, 100)] public int itemSpawnPercen;
     [Range(0, 100)] public int EnemySpawnPercen;
 
     List<Vector3> floorlist = new List<Vector3>();
     LayerMask floorMask, wallMask;
+    public bool useRoundedEdges;
+    private Vector2 hitSize;
     private void Start()
     {
         floorMask = LayerMask.GetMask("Floor");
         wallMask = LayerMask.GetMask("Wall");
+        hitSize = Vector2.one * 0.8f;
         RandomWalker();
     }
 
@@ -107,9 +111,58 @@ public class DungeonManager : MonoBehaviour {
                     }
 
                 }
+                RoundedEdges(x, y);
             }
         }
                
+    }
+
+    private void RoundedEdges(int x, int y)
+    {
+        if (useRoundedEdges)
+        {
+            Collider2D hitWall = Physics2D.OverlapBox(new Vector2(x, y), hitSize, 0, wallMask);
+            if (hitWall)
+            {
+                Collider2D hitTop = Physics2D.OverlapBox(new Vector2(x, y + 1), hitSize, 0, wallMask);
+                Collider2D hitRight = Physics2D.OverlapBox(new Vector2(x + 1, y), hitSize, 0, wallMask);
+                Collider2D hitButtom = Physics2D.OverlapBox(new Vector2(x, y - 1), hitSize, 0, wallMask);
+                Collider2D hitLeft = Physics2D.OverlapBox(new Vector2(x - 1, y), hitSize, 0, wallMask);
+                int bitVal = 0;
+
+                if (!hitTop)
+                {
+                    bitVal += 1;
+                }
+
+                if (!hitRight)
+                {
+                    bitVal += 2;
+                }
+
+                if (!hitButtom)
+                {
+                    bitVal += 4;
+                }
+
+                if (!hitLeft)
+                {
+                    bitVal += 8;
+                }
+
+                if (bitVal > 0)
+                {
+                    GameObject gameObjecEdge = Instantiate(roundedEdges[bitVal], new Vector2(x, y), Quaternion.identity) as GameObject;
+                    gameObjecEdge.name = roundedEdges[bitVal].name;
+                    gameObjecEdge.transform.SetParent(transform);
+
+                }
+
+
+
+            }
+
+        }
     }
 
     private void RandomEnemies(Collider2D hitFloor, Collider2D hitTop, Collider2D hitRight, Collider2D hitButtom, Collider2D hitLeft)
@@ -121,8 +174,7 @@ public class DungeonManager : MonoBehaviour {
             {
                 int EnemyIndex = Random.Range(0, randomEnemies.Length);
                 GameObject GameObjecEnemy = Instantiate(randomEnemies[EnemyIndex], hitFloor.transform.position, Quaternion.identity) as GameObject;
-                GameObjecEnemy.name = randomItems[EnemyIndex].name;
-                GameObjecEnemy.transform.SetParent(transform);
+               
             }
         }
     }

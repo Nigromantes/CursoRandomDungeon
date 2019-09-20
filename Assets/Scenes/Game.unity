@@ -217,6 +217,24 @@ MonoBehaviour:
     type: 2}
   tilePrefab: {fileID: 1902658735878046, guid: 89851f316c80849488973ca151d95e50, type: 2}
   exitPrefab: {fileID: 1672311487106666, guid: dafad482b390b6f4ab9939a8f2da79d8, type: 2}
+  roundedEdges:
+  - {fileID: 1338715422786072, guid: 2576a9585aaac414389e090c533c555f, type: 2}
+  - {fileID: 1035569344272810, guid: 7a4888e22c6e44444a2b849496483e3a, type: 2}
+  - {fileID: 1015580088363964, guid: aff1672d90538404f94588a3603383de, type: 2}
+  - {fileID: 1772701535440032, guid: 13a49d13f235406478c5b98da0282189, type: 2}
+  - {fileID: 1538150987270196, guid: bb896ae3e7b4bb048b7f2a0cc7f04dcd, type: 2}
+  - {fileID: 1990863923939682, guid: 28ec4d045a0a5674b97fe0b0a5ccfdba, type: 2}
+  - {fileID: 1048249285103884, guid: 3978dcb1234447b40bdd1427228bcc86, type: 2}
+  - {fileID: 1611429163449504, guid: 4335288260ed48548ab92ee0fa10b287, type: 2}
+  - {fileID: 1172351492455012, guid: c7f68f3d738af364690f734b4174cf62, type: 2}
+  - {fileID: 1796628181614418, guid: 54f5b5c652c4abe41918d54bc1d6bfa1, type: 2}
+  - {fileID: 1399331142100498, guid: 00f89cf6a27076349a120c03de528260, type: 2}
+  - {fileID: 1612926763721008, guid: fa8fb283bd35da0449505541b7b8d87b, type: 2}
+  - {fileID: 1695057977031220, guid: 32e209cdea9ab874ca4ae25608ddf4e1, type: 2}
+  - {fileID: 1900847691839004, guid: c394fe380aa4c0a4b8e92c8caf92e2a3, type: 2}
+  - {fileID: 1239002358961794, guid: e23972651788fbf45a862a4bf127a78b, type: 2}
+  - {fileID: 1412234612033916, guid: 9f52227ee21832d49be80ed01934c415, type: 2}
   TotalFloorCurrent: 100
   itemSpawnPercen: 20
   EnemySpawnPercen: 21
+  useRoundedEdges: 1
