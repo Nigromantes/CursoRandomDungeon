@@ -234,7 +234,8 @@ MonoBehaviour:
   - {fileID: 1900847691839004, guid: c394fe380aa4c0a4b8e92c8caf92e2a3, type: 2}
   - {fileID: 1239002358961794, guid: e23972651788fbf45a862a4bf127a78b, type: 2}
   - {fileID: 1412234612033916, guid: 9f52227ee21832d49be80ed01934c415, type: 2}
-  TotalFloorCurrent: 100
+  TotalFloorCurrent: 1000
   itemSpawnPercen: 20
   EnemySpawnPercen: 21
   useRoundedEdges: 1
+  dungeonType: 2

@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
+
+public enum DungeonType {Caverns, Rooms, Winding }
 public class DungeonManager : MonoBehaviour {
 
     [HideInInspector] public float maxX, minX, maxY, minY;
@@ -18,14 +20,36 @@ public class DungeonManager : MonoBehaviour {
     List<Vector3> floorlist = new List<Vector3>();
     LayerMask floorMask, wallMask;
     public bool useRoundedEdges;
+
+    public DungeonType dungeonType;
+
     private Vector2 hitSize;
     private void Start()
     {
         floorMask = LayerMask.GetMask("Floor");
         wallMask = LayerMask.GetMask("Wall");
         hitSize = Vector2.one * 0.8f;
-        RandomWalker();
+
+        switch (dungeonType)
+        {
+            case DungeonType.Caverns: RandomWalker();
+                break;
+            case DungeonType.Rooms: RoomWalker();
+                break;
+            case DungeonType.Winding: WingWalker();
+                break;
+
+        }
+
+
+
+        
     }
+
+    //private void WindigWalker()
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     private void Update()
     {
@@ -54,15 +78,86 @@ public class DungeonManager : MonoBehaviour {
 
         }
 
-
-        for (int i = 0; i < floorlist.Count; i++)
-        {
-            GameObject GameObjectTile = Instantiate(tilePrefab, floorlist[i], Quaternion.identity) as GameObject;
-            GameObjectTile.name = tilePrefab.name;
-            GameObjectTile.transform.SetParent(transform);
-        }
+               
         StartCoroutine(DelayProgress());
 
+    }
+
+
+    private void RoomWalker()
+    {
+        Vector3 currentPosition = Vector3.zero;
+        floorlist.Add(currentPosition);
+
+
+        while (floorlist.Count < TotalFloorCurrent)
+        {
+            currentPosition = TakeAHike(currentPosition);
+            RandomRoom(currentPosition);
+        }
+
+
+      
+        StartCoroutine(DelayProgress());
+    }
+
+
+    private void WingWalker()
+    {
+        Vector3 currentPosition = Vector3.zero;
+        floorlist.Add(currentPosition);
+
+
+        while (floorlist.Count < TotalFloorCurrent)
+        {
+            currentPosition = TakeAHike(currentPosition);
+
+            int roll = Random.Range(0, 100);
+            if (roll<50)
+            {
+                RandomRoom(currentPosition);
+            }
+                       
+
+        }
+
+
+
+        StartCoroutine(DelayProgress());
+    }
+
+    private Vector3 TakeAHike(Vector3 currentPosition)
+    {
+        Vector3 walkDirection = RandomDirection();
+        int walkLength = Random.Range(9, 18);
+        for (int i = 0; i < walkLength; i++)
+        {
+            if (!InFloorList(currentPosition + walkDirection))
+            {
+                floorlist.Add(currentPosition + walkDirection);
+            }
+            currentPosition += walkDirection;
+        }
+
+        return currentPosition;
+    }
+
+    private void RandomRoom(Vector3 myPosision)
+    {
+        int width = Random.Range(1, 5);
+        int heigth = Random.Range(1, 5);
+        for (int w = -width; w <= width; w++)
+        {
+            for (int h = -heigth; h <= heigth; h++)
+            {
+                Vector3 offset = new Vector3(w, h, 0);
+                if (!InFloorList(myPosision + offset))
+                {
+                    floorlist.Add(myPosision + offset);
+                }
+
+            }
+        }
     }
 
     bool InFloorList(Vector3 myPosition)
@@ -94,6 +189,14 @@ public class DungeonManager : MonoBehaviour {
 
     IEnumerator DelayProgress()
     {
+        for (int i = 0; i < floorlist.Count; i++)
+        {
+            GameObject GameObjectTile = Instantiate(tilePrefab, floorlist[i], Quaternion.identity) as GameObject;
+            GameObjectTile.name = tilePrefab.name;
+            GameObjectTile.transform.SetParent(transform);
+        }
+
+
         while (FindObjectsOfType<TileSpawner>().Length > 0)
         {
             yield return null;
