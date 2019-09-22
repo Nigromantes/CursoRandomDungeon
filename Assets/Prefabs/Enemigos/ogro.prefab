@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4716252170209570}
   - component: {fileID: 212639690783897336}
   - component: {fileID: 61706850568829906}
+  - component: {fileID: 114604382600577048}
   m_Layer: 9
   m_Name: ogro
   m_TagString: Untagged
@@ -66,6 +67,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114604382600577048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1813368486398054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab9d0d0f515f1147ba4321d2a270cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolInterval: {x: 1, y: 4}
 --- !u!212 &212639690783897336
 SpriteRenderer:
   m_ObjectHideFlags: 1

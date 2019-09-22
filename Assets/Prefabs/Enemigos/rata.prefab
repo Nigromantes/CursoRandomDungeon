@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4717332906013830}
   - component: {fileID: 212186222676365698}
   - component: {fileID: 61044218885546830}
+  - component: {fileID: 114440501702698010}
   m_Layer: 9
   m_Name: rata
   m_TagString: Untagged
@@ -66,6 +67,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114440501702698010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1715967703438834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab9d0d0f515f1147ba4321d2a270cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolInterval: {x: 1, y: 4}
 --- !u!212 &212186222676365698
 SpriteRenderer:
   m_ObjectHideFlags: 1

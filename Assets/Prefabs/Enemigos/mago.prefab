@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4191985739161920}
   - component: {fileID: 212245863794780072}
   - component: {fileID: 61138698128670492}
+  - component: {fileID: 114934831798844180}
   m_Layer: 9
   m_Name: mago
   m_TagString: Untagged
@@ -66,6 +67,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114934831798844180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1767279647797182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab9d0d0f515f1147ba4321d2a270cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolInterval: {x: 1, y: 4}
 --- !u!212 &212245863794780072
 SpriteRenderer:
   m_ObjectHideFlags: 1
